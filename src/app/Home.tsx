@@ -1,15 +1,30 @@
 import { useState } from "react";
 import { StatusBar } from "expo-status-bar";
-import { TouchableWithoutFeedback, View, Keyboard } from "react-native";
+import {DateTimePickerAndroid, DateTimePickerEvent} from '@react-native-community/datetimepicker';
+import {
+  TouchableWithoutFeedback,
+  View,
+  Keyboard,
+  Text,
+  Button,
+  FlatList,
+  ScrollView,
+  StyleSheet,
+  TextInput
+} from "react-native";
 import { Header } from "../components/Header";
 import { Card } from "../components/Card";
 import { InfoInput } from "../components/InfoInput";
+import { InfoDate } from "../components/InfoDate";
 
 export default function Home() {
   const [maleStatus, setMaleStatus] = useState(false);
   const [femaleStatus, setFemaleStatus] = useState(true);
   const [peso, setPeso] = useState("");
   const [altura, setAltura] = useState("");
+  const [month, setMonth] = useState("");
+  const [year, setYear] = useState("");
+  //const [isDatePickerActive, setIsDatePickerActive] = useState(false)
 
   function selectMale() {
     setMaleStatus(true);
@@ -20,6 +35,9 @@ export default function Home() {
     setMaleStatus(false);
     setFemaleStatus(true);
   }
+
+  const dataAtual = new Date();
+  const anoAtual = dataAtual. getFullYear();
 
   return (
     <TouchableWithoutFeedback
@@ -47,20 +65,40 @@ export default function Home() {
           </View>
 
           {/* Peso e Altura */}
-          <View className="flex flex-row bg-red-100 mt-10 pb-5">
+          <View className="flex flex-row bg-red-100 mt-10 mb-10 pb-1">
             <InfoInput
-              title="Peso"
-              placeholder="00"
-              mask="99.99"
+              title="Peso (kg)"
+              placeholder="000"
+              mask="999"
               value={peso}
               setValue={setPeso}
             />
             <InfoInput
-              title="Altura"
+              title="Altura (cm)"
               placeholder="000"
               mask="999"
               value={altura}
               setValue={setAltura}
+            />
+          </View>
+
+          {/* Data de Nascimento */}
+          <View className="flex flex-row bg-red-100 mb-10 pb-1">
+            <InfoDate 
+              placeholder="12"
+              title="Mês de Nascimento"
+              value={month}
+              setValue={setMonth}
+              maxLength={2}
+              maxValue={12}
+            />
+            <InfoDate 
+              placeholder="2000"
+              title="Ano de Nascimento"
+              value={year}
+              setValue={setYear}
+              maxLength={4}
+              maxValue={anoAtual}
             />
           </View>
         </View>
