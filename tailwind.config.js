@@ -4,6 +4,7 @@ module.exports = {
   theme:{
     fontFamily: {
       'mulish': ['Mulish_800ExtraBold'],
+      'mulish-sm': ['Mulish_400Regular'],
     },
     extend: {
       colors: {

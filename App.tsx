@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Text, View, StyleSheet } from 'react-native';
-import {  useFonts, Mulish_800ExtraBold } from '@expo-google-fonts/mulish';
+import {  useFonts, Mulish_800ExtraBold, Mulish_400Regular } from '@expo-google-fonts/mulish';
 import { Home } from './src/app/Home';
 import { Result } from './src/app/Result';
 import { StatusBar } from 'expo-status-bar';
@@ -8,6 +8,7 @@ import { StatusBar } from 'expo-status-bar';
 export default function App() {
   let [fontsLoaded] = useFonts({
     Mulish_800ExtraBold,
+    Mulish_400Regular
   })
 
   if (!fontsLoaded) {

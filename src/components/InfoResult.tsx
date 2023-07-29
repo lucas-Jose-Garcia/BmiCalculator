@@ -1,5 +1,4 @@
-import { View, Text, TouchableOpacity } from "react-native";
-import { MaterialIcons } from "@expo/vector-icons";
+import { View, Text } from "react-native";
 import { ResultDescription } from "./resultDescription";
 
 export function InfoResult() {
@@ -15,6 +14,10 @@ export function InfoResult() {
       </View>
 
       <ResultDescription description="Obesidade" />
+
+        <View className="mt-3 justify-center items-center">
+          <Text className="text-zinc-500 font-mulish-sm text-sm">75.00 kg | 170 cm | Masculino | 19 anos</Text>
+        </View>
     </View>
   );
 }
