@@ -14,7 +14,7 @@ export function InfoInput({title, placeholder, mask, value, setValue}: InfoInput
     <View className="flex-1 items-center justify-center">
       <Text className="mb-1 font-mulish">{title}</Text>
       <MaskedTextInput
-        className="w-[150px] h-[68] text-slate-900 caret-slate-800 bg-white rounded-lg text-center text-3xl font-mulish"
+        className="w-[150px] h-[68] text-slate-900 caret-slate-800 bg-zinc-100 border-solid border-2 border-zinc-300 rounded-lg text-center text-3xl font-mulish"
         keyboardType="number-pad"
         placeholder={placeholder}
         mask={mask}
@@ -24,3 +24,5 @@ export function InfoInput({title, placeholder, mask, value, setValue}: InfoInput
     </View>
   );
 }
+
+
