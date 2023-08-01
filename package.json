@@ -21,7 +21,8 @@
     "react-native-svg-transformer": "^1.0.0",
     "@react-native-community/slider": "4.4.2",
     "@react-native-community/datetimepicker": "6.7.3",
-    "react-native-gesture-handler": "~2.9.0"
+    "react-native-gesture-handler": "~2.9.0",
+    "expo-image": "~1.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
