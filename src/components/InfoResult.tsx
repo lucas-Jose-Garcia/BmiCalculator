@@ -22,8 +22,8 @@ export function InfoResult({bmi, data} : InfoResultProps) {
 
   const limitOfNormal = (quite * 100 / higher) + "%"
   const limitOfBottom = (bottom * 100 / higher) + "%"
-  console.log("limitOfNormal: " + limitOfNormal)
-  console.log("limitOfBottom: " + limitOfBottom)
+  const markerPosition = bmi > higher ? "98%" : (bmi * 100 / higher) + "%"
+  console.log("markerPosition: "+ markerPosition)
 
   return (
     <View className="mt-6 bg-white p-4 rounded-md shadow-lg">
@@ -36,7 +36,7 @@ export function InfoResult({bmi, data} : InfoResultProps) {
         <View className="w-full h-4 bg-principal-800 rounded-lg" />
         <View className="h-4 bg-principal-600 rounded-lg absolute" style={{width: limitOfNormal}}/>
         <View className="h-4 bg-principal-300 rounded-lg absolute" style={{width: limitOfBottom}}/>
-        <View className="w-2 h-6 bg-slate-800 rounded-lg absolute" style={{left: "50%"}}/>
+        <View className="w-2 h-6 bg-slate-800 rounded-lg absolute" style={{left: markerPosition}}/>
       </View>
 
       <ResultDescription description="Normal" />
