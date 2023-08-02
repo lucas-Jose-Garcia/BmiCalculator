@@ -23,7 +23,6 @@ export function InfoResult({bmi, data} : InfoResultProps) {
   const limitOfNormal = (quite * 100 / higher) + "%"
   const limitOfBottom = (bottom * 100 / higher) + "%"
   const markerPosition = bmi > higher ? "98%" : (bmi * 100 / higher) + "%"
-  console.log("markerPosition: "+ markerPosition)
 
   return (
     <View className="mt-6 bg-white p-4 rounded-md shadow-lg">
@@ -40,6 +39,10 @@ export function InfoResult({bmi, data} : InfoResultProps) {
       </View>
 
       <ResultDescription description="Normal" />
+
+      <View>
+
+      </View>
 
         <View className="mt-3 justify-center items-center">
           <Text className="text-zinc-500 font-mulish-sm text-sm">75.00 kg | 170 cm | Masculino | 19 anos</Text>

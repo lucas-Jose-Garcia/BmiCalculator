@@ -1,48 +1,46 @@
-import React from "react";
-import { View, TouchableOpacity, Text } from "react-native";
+import React, { useState } from "react";
+import { View, TouchableOpacity, Text, Button, Modal } from "react-native";
 import { HeaderResult } from "../components/HeaderResult";
 import { InfoResult } from "../components/InfoResult";
 import { ExplainResult } from "../components/ExplainResult";
-import { getTableAboveNineten } from "../data/data";
+import { tableAboveNineten } from "../data/data";
 
 import { Image } from "expo-image";
+import { TableModal } from "../components/TableModal";
 
 export function Result() {
-  const tableAboveNineten = getTableAboveNineten();
+  const [isModalVisible, setModalVisible] = useState(false);
 
+  const toggleModal = () => {
+    setModalVisible(!isModalVisible);
+  };
   return (
     <View className="flex-1 flex-grow justify-between bg-zinc-50">
       <View>
         <HeaderResult />
 
-        <InfoResult 
-          bmi={20.5}
-          data={tableAboveNineten}
-        />
+        <InfoResult bmi={20.5} data={tableAboveNineten} />
 
         <ExplainResult resultado="Normal" />
       </View>
 
-      
+      <Button title="Abrir Modal" onPress={toggleModal} />
 
-      {/* <TouchableOpacity className="mb-10 flex-row items-center p-2 rounded-lg shadow-sm shadow-zinc-400 bg-zinc-100">
-        <View className="flex-row items-center gap-3">
-          <Image
-            source={require("../assets/ebook.jpg")}
-            style={{ width: 100, height: 100 }}
-          />
-          <View className="flex-1">
-            <Text className="font-bold">
-                <Text className="text-principal-600">ADS </Text>
-              Quer ter uma alimentação mais saúdavel e descomplicada?
-            </Text>
-            <Text className="text-justify">
-              Não deixe de confeir esse eBook com receitas fit e com pouco
-              carboitratos para uma vida cheia de energia e bem-estar!{" "}
-            </Text>
-          </View>
+
+      <Modal animationType="slide" transparent={true} visible={isModalVisible}>
+      <View className="flex-1 justify-end">
+        <View className="p-5 bg-white shadow-md shadow-gray-400 rounded-lg">
+        <Text>Valor da Tabela</Text>
+        <Text>Valor da Tabela</Text>
+        <Text>Valor da Tabela</Text>
+        <Text>Valor da Tabela</Text>
+        <Text>Valor da Tabela</Text>
+        <Button title="Hide modal" onPress={toggleModal} />
         </View>
-      </TouchableOpacity> */}
+      </View>
+    </Modal>
+
+      {/* <TableModal isModalVisible toggleModal={toggleModal} /> */}
     </View>
   );
 }
