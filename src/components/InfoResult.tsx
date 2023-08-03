@@ -13,9 +13,10 @@ interface tableLimitProps {
 interface InfoResultProps {
   bmi: number
   data: tableLimitProps
+  onPress: () => void
 }
 
-export function InfoResult({bmi, data} : InfoResultProps) {
+export function InfoResult({bmi, data, onPress} : InfoResultProps) {
   const bottom = data["underLimit"]/1.5
   const quite = data["normalLimit"]
   const higher = data["obesityThreeLimit"] ? data["obesityThreeLimit"] : data["obesityLimit"]
@@ -38,7 +39,7 @@ export function InfoResult({bmi, data} : InfoResultProps) {
         <View className="w-2 h-6 bg-slate-800 rounded-lg absolute" style={{left: markerPosition}}/>
       </View>
 
-      <ResultDescription description="Normal" />
+      <ResultDescription description="Normal" onPress={onPress}/>
 
       <View>
 
