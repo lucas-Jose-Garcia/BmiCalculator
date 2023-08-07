@@ -1,5 +1,6 @@
 import { View, Text } from "react-native";
 import { ResultDescription } from "./ResultDescription";
+import { NutritionalStatus } from "../app/Result";
 
 interface tableLimitProps {
   underLimit: number;
@@ -11,20 +12,30 @@ interface tableLimitProps {
 }
 
 interface InfoResultProps {
-  bmi: number
+  bmi: string
   data: tableLimitProps
+  resultado: NutritionalStatus
   onPress: () => void
 }
 
-export function InfoResult({bmi, data, onPress} : InfoResultProps) {
-  const bottom = data["underLimit"]/1.5
-  const quite = data["normalLimit"]
-  const higher = data["obesityThreeLimit"] ? data["obesityThreeLimit"] : data["obesityLimit"]
+export function InfoResult({bmi, data, resultado, onPress} : InfoResultProps) {
+  const bottom = data["underLimit"]
+  const quite = data["overwightLimit"]
+  const higher = data["obesityThreeLimit"] ? data["obesityThreeLimit"] : data["obesityLimit"] * 1.2
 
-  const limitOfNormal = (quite * 100 / higher) + "%"
-  const limitOfBottom = (bottom * 100 / higher) + "%"
-  const markerPosition = bmi > higher ? "98%" : (bmi * 100 / higher) + "%"
+  const BmiNumber = Number(bmi)
+  let point = 0
+  if (BmiNumber < bottom) {
+    point = (BmiNumber / bottom) * 30
+  } else if (BmiNumber <= quite) {
+    point = 30 + ((BmiNumber - bottom) / (quite - bottom)) * 40
+  } else  if (BmiNumber < higher) {
+    point = 70 + ((BmiNumber - quite) / (higher - quite)) * 28
+  } else {
+    point = 98
+  }
 
+  const markerPosition = point + "%"
   return (
     <View className="mt-6 bg-white p-4 rounded-md shadow-lg">
       <View className="justify-center items-center mt-4 mb-6">
@@ -32,14 +43,19 @@ export function InfoResult({bmi, data, onPress} : InfoResultProps) {
         <Text className="font-mulish text-4xl">{bmi}</Text>
       </View>
 
-      <View className="mb-8 justify-center">
+      <View className="justify-center">
         <View className="w-full h-4 bg-principal-800 rounded-lg" />
-        <View className="h-4 bg-principal-600 rounded-lg absolute" style={{width: limitOfNormal}}/>
-        <View className="h-4 bg-principal-300 rounded-lg absolute" style={{width: limitOfBottom}}/>
-        <View className="w-2 h-6 bg-slate-800 rounded-lg absolute" style={{left: markerPosition}}/>
+        <View className="w-[70%] h-4 bg-principal-600 rounded-lg absolute"/>
+        <View className="w-[30%] h-4 bg-principal-300 rounded-lg absolute"/>
+        <View className="w-2 h-6 ml-[-4px] bg-slate-800 rounded-lg absolute" style={{left: markerPosition}}/>
+      </View>
+      <View className="mt-1 mb-8 flex-row justify-between" >
+        <Text className="font-mulish-sm text-[12px] text-slate-600">Abaixo do Peso</Text>
+        <Text className="font-mulish-sm text-[12px] text-slate-600">Obesidade</Text>
       </View>
 
-      <ResultDescription description="Normal" onPress={onPress}/>
+
+      <ResultDescription description={resultado} onPress={onPress}/>
 
       <View>
 

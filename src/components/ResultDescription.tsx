@@ -1,9 +1,10 @@
 import React from "react";
 import { View, TouchableOpacity, Text } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
+import { NutritionalStatus } from "../app/Result";
 
 interface ResultDescriptionProps {
-    description: string
+    description: NutritionalStatus
     onPress: () => void
 }
 
