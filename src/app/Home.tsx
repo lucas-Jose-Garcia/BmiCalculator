@@ -16,6 +16,7 @@ import { Header } from "../components/Header";
 import { Card } from "../components/Card";
 import { InfoInput } from "../components/InfoInput";
 import { InfoDate } from "../components/InfoDate";
+import { Button } from "../components/Button";
 
 export function Home() {
   const [maleStatus, setMaleStatus] = useState(false);
@@ -102,14 +103,7 @@ export function Home() {
 
         {/* Footer */}
         <View className="justify-center items-center">
-          <TouchableOpacity
-            className="justify-center items-center bg-principal-300 w-60 h-14 rounded-3xl"
-            activeOpacity={0.7}
-          >
-            <Text className="text-2xl font-mulish text-zinc-100 uppercase">
-              Calcular
-            </Text>
-          </TouchableOpacity>
+          <Button caption="Calcular"/>
 
           <View className="mt-7">
             <TouchableOpacity className="flex-row justify-center items-center gap-1">
