@@ -36,7 +36,7 @@ interface interpretItem {
 
 export const interpretTable = [
     {
-        description: "Abaixo do peso",
+        description: "Abaixo do Peso",
         adults: "underLimit",
         percentis: "P5",
         percentisCustomDescription: "",
@@ -49,7 +49,7 @@ export const interpretTable = [
         percentisCustomDescription: "",
     },
     {
-        description: "Acima do peso",
+        description: "Sobrepeso",
         adults: "overwightLimit",
         percentis: "P95",
         percentisCustomDescription: "",

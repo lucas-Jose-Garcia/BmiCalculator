@@ -9,6 +9,7 @@ import { Image } from "expo-image";
 import { TableModal } from "../components/TableModal";
 import { tableBoys } from "../data/tableBoys";
 import { tableGirls } from "../data/tableGirls";
+import { Button } from "../components/Button";
 
 export type NutritionalStatus = "" | "Abaixo do Peso" | "Normal" | "Sobrepeso" | "Obesidade" |  "Obesidade Grau I" | "Obesidade Grau II" | "Obesidade Grau III" | undefined;
 
@@ -19,9 +20,9 @@ export function Result() {
   const [currentTable, setCurrentTable] = useState<tableProps>(tableAboveNineten)
 
   const height = 160
-  const weight = 55
+  const weight = 50
   const gender = 'male'
-  const months = 240
+  const months = 220
 
   function calculateBmi(alturaValue: number, pesoValue: number) {
     const heightInMeters = alturaValue / 100
@@ -43,7 +44,6 @@ export function Result() {
   function filterTableByMonth(table: teensTableProps[], monthsValue: number) {
     const filterTable = table.filter(item => item.Month == monthsValue)
     const tableResult = filterTable[0]
-    console.log(tableResult)
     return tableResult
   }
 
@@ -106,16 +106,20 @@ export function Result() {
     <View className="flex-1 flex-grow justify-between bg-zinc-50">
       <View>
         <CustomHeader titulo="Resultado" />
-
         <InfoResult bmi={bmi} data={currentTable} onPress={toggleModal} resultado={nutritionalStatus}  />
 
         <ExplainResult resultado={nutritionalStatus} />
+
+        <View className="flex-1 items-center mt-8">
+          <Button caption="Salvar" />
+        </View>
       </View>
 
       <TableModal 
         isModalVisible={isModalVisible}
-        tableData={tableAboveNineten}
+        tableData={currentTable}
         toggleModal={toggleModal}
+        nutritionalStatus={nutritionalStatus}
       />
     </View>
   );
