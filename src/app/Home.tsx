@@ -17,8 +17,11 @@ import { Card } from "../components/Card";
 import { InfoInput } from "../components/InfoInput";
 import { InfoDate } from "../components/InfoDate";
 import { Button } from "../components/Button";
+import { useNavigation } from '@react-navigation/native';
+import { StackTypes } from "../routers/stack";
 
 export function Home() {
+  const navigation = useNavigation<StackTypes>()
   const [maleStatus, setMaleStatus] = useState(false);
   const [femaleStatus, setFemaleStatus] = useState(true);
   const [peso, setPeso] = useState("");
@@ -103,7 +106,7 @@ export function Home() {
 
         {/* Footer */}
         <View className="justify-center items-center">
-          <Button caption="Calcular"/>
+          <Button caption="Calcular" onPress={() => {navigation.navigate('Result')}} />
 
           <View className="mt-7">
             <TouchableOpacity className="flex-row justify-center items-center gap-1">

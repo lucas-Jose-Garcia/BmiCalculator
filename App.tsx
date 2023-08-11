@@ -4,6 +4,7 @@ import {  useFonts, Mulish_800ExtraBold, Mulish_400Regular } from '@expo-google-
 import { Home } from './src/app/Home';
 import { Result } from './src/app/Result';
 import { StatusBar } from 'expo-status-bar';
+import { StackComponent } from './src/routers/stack';
 
 export default function App() {
   let [fontsLoaded] = useFonts({
@@ -17,7 +18,7 @@ export default function App() {
 
   return (
     <View className="flex-1 mt-7 p-5 bg-zinc-50">
-      <Result />
+      <StackComponent />
 
       <StatusBar style="auto" backgroundColor='#fafafa'/>
     </View>

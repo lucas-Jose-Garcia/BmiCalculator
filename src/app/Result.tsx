@@ -10,10 +10,14 @@ import { TableModal } from "../components/TableModal";
 import { tableBoys } from "../data/tableBoys";
 import { tableGirls } from "../data/tableGirls";
 import { Button } from "../components/Button";
+import { useNavigation } from '@react-navigation/native';
+import { StackTypes } from "../routers/stack";
+
 
 export type NutritionalStatus = "" | "Abaixo do Peso" | "Normal" | "Sobrepeso" | "Obesidade" |  "Obesidade Grau I" | "Obesidade Grau II" | "Obesidade Grau III" | undefined;
 
 export function Result() {
+  const navigation = useNavigation<StackTypes>()
   const [isModalVisible, setModalVisible] = useState(false);
   const [bmi, setBmi] = useState("")
   const [nutritionalStatus, setNutritionalStatus] = useState<NutritionalStatus>("")
@@ -111,7 +115,7 @@ export function Result() {
         <ExplainResult resultado={nutritionalStatus} />
 
         <View className="flex-1 items-center mt-8">
-          <Button caption="Salvar" />
+          <Button caption="Salvar" onPress={() => {}}/>
         </View>
       </View>
 
