@@ -1,9 +1,5 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { StatusBar } from "expo-status-bar";
-import {
-  DateTimePickerAndroid,
-  DateTimePickerEvent,
-} from "@react-native-community/datetimepicker";
 import {
   TouchableWithoutFeedback,
   View,
@@ -19,15 +15,22 @@ import { InfoDate } from "../components/InfoDate";
 import { Button } from "../components/Button";
 import { useNavigation } from '@react-navigation/native';
 import { StackTypes } from "../routers/stack";
+import { StateContex, StateContexProps } from "../context";
 
 export function Home() {
   const navigation = useNavigation<StackTypes>()
-  const [maleStatus, setMaleStatus] = useState(false);
-  const [femaleStatus, setFemaleStatus] = useState(true);
-  const [peso, setPeso] = useState("");
-  const [altura, setAltura] = useState("");
-  const [month, setMonth] = useState("");
-  const [year, setYear] = useState("");
+  const {maleStatus,
+    femaleStatus, 
+    weight, 
+    height, 
+    month, 
+    year, 
+    setMaleStatus, 
+    setFemaleStatus, 
+    setWeight,
+    setHeight,
+    setMonth, 
+    setYear,} = useContext<StateContexProps>(StateContex)
 
   function selectMale() {
     setMaleStatus(true);
@@ -47,7 +50,7 @@ export function Home() {
       className="flex-1 items-center justify-start "
       onPress={Keyboard.dismiss}
     >
-      <View className="flex-1 bg-zinc-50">
+      <View className="flex-1 justify-center bg-zinc-50">
         <Header />
         {/* Form */}
         <View>
@@ -71,15 +74,15 @@ export function Home() {
               title="Peso (kg)"
               placeholder="000"
               mask="999"
-              value={peso}
-              setValue={setPeso}
+              value={weight}
+              setValue={setWeight}
             />
             <InfoInput
               title="Altura (cm)"
               placeholder="000"
               mask="999"
-              value={altura}
-              setValue={setAltura}
+              value={height}
+              setValue={setHeight}
             />
           </View>
 

@@ -5,6 +5,7 @@ import { Home } from './src/app/Home';
 import { Result } from './src/app/Result';
 import { StatusBar } from 'expo-status-bar';
 import { StackComponent } from './src/routers/stack';
+import { StateProvider } from './src/context';
 
 export default function App() {
   let [fontsLoaded] = useFonts({
@@ -18,9 +19,10 @@ export default function App() {
 
   return (
     <View className="flex-1 mt-7 p-5 bg-zinc-50">
-      <StackComponent />
-
-      <StatusBar style="auto" backgroundColor='#fafafa'/>
+      <StateProvider>
+        <StackComponent />
+        <StatusBar style="auto" backgroundColor='#fafafa'/>
+      </StateProvider>
     </View>
   );
 }
