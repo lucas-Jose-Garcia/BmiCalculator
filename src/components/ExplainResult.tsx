@@ -2,6 +2,8 @@ import { Text, View, TouchableOpacity} from "react-native";
 import { AntDesign } from '@expo/vector-icons';
 import React from "react";
 import { NutritionalStatus } from "../app/Result";
+import { useNavigation } from "@react-navigation/native";
+import { StackTypes } from "../routers/stack";
 
 interface ExplainResultProps {
     resultado: NutritionalStatus
@@ -18,10 +20,12 @@ const explanations = {
 }
 
 export function ExplainResult({resultado}: ExplainResultProps) {
+    const navigation = useNavigation<StackTypes>()
+
     return (
     <View className="items-center mt-8 bg-zinc-200 rounded-md shadow-md shadow-zinc-400">
         <Text className="p-3 font-mulish-sm text-justify text-zinc-700">{resultado ? explanations[resultado] : ""}</Text>
-        <TouchableOpacity className="flex-row items-center gap-1 mb-4 bl">
+        <TouchableOpacity className="flex-row items-center gap-1 mb-4 bl" onPress={() => {navigation.navigate('Details')}}>
             <AntDesign name="questioncircleo" size={18} color="#52525b" />
             <Text className="text-zinc-600 font-mulish">Como o IMC é calculado?</Text>
         </TouchableOpacity>
