@@ -4,6 +4,7 @@ import { createNativeStackNavigator, NativeStackNavigationProp } from '@react-na
 import { Home } from '../app/Home';
 import { Result } from '../app/Result';
 import { Details } from '../app/Details';
+import { History } from '../app/History';
 
 const Stack = createNativeStackNavigator();
 
@@ -11,6 +12,7 @@ type StackNavigation = {
     Home: undefined
     Result: undefined
     Details: undefined
+    History: undefined
 }
 
 export type StackTypes = NativeStackNavigationProp<StackNavigation> 
@@ -54,6 +56,13 @@ export function StackComponent() {
                 <Stack.Screen 
                     name='Details' 
                     component={Details} 
+                    options={{
+                        headerShown: false
+                    }}
+                />
+                <Stack.Screen 
+                    name='History' 
+                    component={History} 
                     options={{
                         headerShown: false
                     }}

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useCallback } from "react";
 import { StatusBar } from "expo-status-bar";
 import {
   TouchableWithoutFeedback,
@@ -13,9 +13,10 @@ import { Card } from "../components/Card";
 import { InfoInput } from "../components/InfoInput";
 import { InfoDate } from "../components/InfoDate";
 import { Button } from "../components/Button";
-import { useNavigation } from '@react-navigation/native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { StackTypes } from "../routers/stack";
 import { StateContex, StateContexProps } from "../context";
+import Toast from 'react-native-toast-message';
 
 export function Home() {
   const navigation = useNavigation<StackTypes>()
@@ -42,8 +43,41 @@ export function Home() {
     setFemaleStatus(true);
   }
 
-  const dataAtual = new Date();
-  const anoAtual = dataAtual.getFullYear();
+  function checkCompletionOfFields() {
+    if (Number(weight) > 0 && Number(height) > 0 && Number(month) > 0 && Number(year) > 0) {
+      return true
+    }
+
+    return false
+  }
+
+
+
+  function handleToCalculateBmi() {
+    const checkCompletion = checkCompletionOfFields()
+
+    if (checkCompletion) {
+      navigation.navigate('Result')
+    } else {
+      Toast.show({
+        type: 'info',
+        text1: 'Todos os campos devem ser preenchidos!'
+      })
+    }
+
+  }
+
+  
+  const currentDate = new Date();
+  const currentYear = currentDate.getFullYear();
+
+  useFocusEffect(useCallback(() => {
+    setWeight("")
+    setHeight("")
+    setMonth("")
+    setYear("")
+  }, []))
+
 
   return (
     <TouchableWithoutFeedback
@@ -89,7 +123,7 @@ export function Home() {
           {/* Data de Nascimento */}
           <View className="flex flex-row mb-10 pb-1">
             <InfoDate
-              placeholder="12"
+              placeholder="00"
               title="Mês de Nascimento"
               value={month}
               setValue={setMonth}
@@ -97,22 +131,22 @@ export function Home() {
               maxValue={12}
             />
             <InfoDate
-              placeholder="2000"
+              placeholder="0000"
               title="Ano de Nascimento"
               value={year}
               setValue={setYear}
               maxLength={4}
-              maxValue={anoAtual}
+              maxValue={currentYear}
             />
           </View>
         </View>
 
         {/* Footer */}
         <View className="justify-center items-center">
-          <Button caption="Calcular" onPress={() => {navigation.navigate('Result')}} />
+          <Button caption="Calcular" onPress={handleToCalculateBmi} />
 
           <View className="mt-7">
-            <TouchableOpacity className="flex-row justify-center items-center gap-1">
+            <TouchableOpacity onPress={() => {navigation.navigate('History')}} className="flex-row justify-center items-center gap-1">
               <FontAwesome5 name="history" size={20} color="#1a1414" />
               <Text className="text-sm">Acessar histórico</Text>
             </TouchableOpacity>

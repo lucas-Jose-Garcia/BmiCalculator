@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { View} from "react-native";
 import { CustomHeader } from "../components/CustomHeader";
 import { InfoResult } from "../components/InfoResult";
@@ -12,6 +12,7 @@ import { tableGirls } from "../data/tableGirls";
 import { Button } from "../components/Button";
 import { useNavigation } from '@react-navigation/native';
 import { StackTypes } from "../routers/stack";
+import { StateContex, StateContexProps } from "../context";
 
 
 export type NutritionalStatus = "" | "Abaixo do Peso" | "Normal" | "Sobrepeso" | "Obesidade" |  "Obesidade Grau I" | "Obesidade Grau II" | "Obesidade Grau III" | undefined;
@@ -23,10 +24,17 @@ export function Result() {
   const [nutritionalStatus, setNutritionalStatus] = useState<NutritionalStatus>("")
   const [currentTable, setCurrentTable] = useState<tableProps>(tableAboveNineten)
 
-  const height = 160
-  const weight = 50
-  const gender = 'male'
-  const months = 220
+  const {maleStatus,
+    weight, 
+    height, 
+    month, 
+    year } = useContext<StateContexProps>(StateContex)
+
+  const gender = maleStatus ? 'male' : 'female'
+  const currentDate = new Date();
+  const currentYear = currentDate.getFullYear();
+  const currentMonth = currentDate.getMonth();
+  const months = (currentYear - Number(year)) * 12 + (currentMonth - Number(month))
 
   function calculateBmi(alturaValue: number, pesoValue: number) {
     const heightInMeters = alturaValue / 100
@@ -35,7 +43,7 @@ export function Result() {
 
   function getTableToBeUsed(monthsValue: number, genderValue: string) {
     let table: tableProps = tableAboveNineten
-    
+
     if (monthsValue <= 228 && genderValue == 'male') {
       table = convertTableForStandard(filterTableByMonth(tableBoys, monthsValue))
     } else if (monthsValue <= 228 && genderValue == 'female') {
@@ -90,7 +98,7 @@ export function Result() {
   };
 
   useEffect(() => {
-    const bmiValue = calculateBmi(height, weight)
+    const bmiValue = calculateBmi(Number(height), Number(weight))
     setBmi(bmiValue)
     // Qual tabela eu devo usar? Teens Boys or Grils or Aduts
       // idade é maior do que 19?

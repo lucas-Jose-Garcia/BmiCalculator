@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import React from 'react';
+import { View } from 'react-native';
 import {  useFonts, Mulish_800ExtraBold, Mulish_400Regular } from '@expo-google-fonts/mulish';
-import { Home } from './src/app/Home';
-import { Result } from './src/app/Result';
 import { StatusBar } from 'expo-status-bar';
 import { StackComponent } from './src/routers/stack';
 import { StateProvider } from './src/context';
+import { Toast } from 'react-native-toast-message/lib/src/Toast';
 
 export default function App() {
   let [fontsLoaded] = useFonts({
@@ -23,6 +22,7 @@ export default function App() {
         <StackComponent />
         <StatusBar style="auto" backgroundColor='#fafafa'/>
       </StateProvider>
+      <Toast />
     </View>
   );
 }

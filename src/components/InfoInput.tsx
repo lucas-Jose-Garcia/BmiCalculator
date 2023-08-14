@@ -20,6 +20,7 @@ export function InfoInput({title, placeholder, mask, value, setValue}: InfoInput
         mask={mask}
         onChangeText={(text) => setValue(text)}
         value={value}
+        multiline={true}
       />
     </View>
   );

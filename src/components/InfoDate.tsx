@@ -33,6 +33,7 @@ export function InfoDate({title, placeholder, value, maxValue, maxLength, setVal
         value={value}
         maxLength={maxLength}
         onEndEditing={applyMask}
+        multiline={true}
       />
     </View>
   );
