@@ -1,15 +1,8 @@
 import { Text, TouchableOpacity, View } from "react-native";
-
-interface HistoryCardItem {
-    id: string
-    bmi: number
-    status: string
-    Description: string 
-    criateAt: string
-}
+import { HistoryItem } from "../conection/results";
 
 interface HistoryCardProps {
-    data: HistoryCardItem
+    data: HistoryItem
 }
 
 export function HistoryCard({data} : HistoryCardProps) {

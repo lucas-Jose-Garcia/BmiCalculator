@@ -97,21 +97,17 @@ export function Result() {
     setModalVisible(!isModalVisible);
   };
 
+  function handleSaveHistory() {
+    
+  }
+
   useEffect(() => {
     const bmiValue = calculateBmi(Number(height), Number(weight))
     setBmi(bmiValue)
-    // Qual tabela eu devo usar? Teens Boys or Grils or Aduts
-      // idade é maior do que 19?
-        // se sim escolhe a tabela pelo genero
-      // se não usa a tabela de adultos
-
     const currentTableUsed = getTableToBeUsed(months, gender)
     const checkStatus = checkNutritionalStatus(bmiValue, currentTableUsed)
     setCurrentTable(currentTableUsed)
     setNutritionalStatus(checkStatus) 
-
-    //filterTableByMonth(tableBoys, 100)
-
   }, [])
 
   return (
