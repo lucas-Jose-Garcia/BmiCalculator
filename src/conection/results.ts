@@ -2,7 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export interface HistoryItem {
     id: string
-    bmi: number
+    bmi: string
     status: string
     Description: string 
     criateAt: string

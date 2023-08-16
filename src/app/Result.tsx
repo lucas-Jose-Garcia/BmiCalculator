@@ -13,7 +13,11 @@ import { Button } from "../components/Button";
 import { useNavigation } from '@react-navigation/native';
 import { StackTypes } from "../routers/stack";
 import { StateContex, StateContexProps } from "../context";
-
+import { getHistoryBmi, storeHistoryBmi } from "../conection/results";
+import Toast from 'react-native-toast-message';
+import 'react-native-get-random-values';
+import 'uuid';
+import { v4 as uuid } from 'uuid'
 
 export type NutritionalStatus = "" | "Abaixo do Peso" | "Normal" | "Sobrepeso" | "Obesidade" |  "Obesidade Grau I" | "Obesidade Grau II" | "Obesidade Grau III" | undefined;
 
@@ -97,8 +101,32 @@ export function Result() {
     setModalVisible(!isModalVisible);
   };
 
-  function handleSaveHistory() {
-    
+  async function handleSaveHistory() {
+    try {
+      const id = uuid()
+      const newRegister = {
+        id,
+        bmi, 
+        status: "",
+        Description: "",
+        criateAt: (new Date()).toString()
+      }
+      await storeHistoryBmi(newRegister)
+      Toast.show({
+        type: 'success',
+        text1: 'Registro salvo com sucesso!'
+      })
+
+      navigation.navigate('Home')
+
+    } catch (e) {
+      Toast.show({
+        type: 'error',
+        text1: 'Ops, ocorreu um erro!',
+        text2: `Erro: ${e}`
+      })
+      console.log(e)
+    }
   }
 
   useEffect(() => {
@@ -119,8 +147,15 @@ export function Result() {
         <ExplainResult resultado={nutritionalStatus} />
 
         <View className="flex-1 items-center mt-8">
-          <Button caption="Salvar" onPress={() => {}}/>
+          <Button caption="Salvar" onPress={handleSaveHistory}/>
         </View>
+
+        {/* <View className="flex-1 items-center mt-8">
+          <Button caption="Teste" onPress={async () => {
+            const  response = await getHistoryBmi()
+            console.log(response)
+          }}/>
+        </View> */}
       </View>
 
       <TableModal 
