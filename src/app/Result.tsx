@@ -13,7 +13,7 @@ import { Button } from "../components/Button";
 import { useNavigation } from '@react-navigation/native';
 import { StackTypes } from "../routers/stack";
 import { StateContex, StateContexProps } from "../context";
-import { getHistoryBmi, storeHistoryBmi } from "../conection/results";
+import { clearHistoryBmi, getHistoryBmi, storeHistoryBmi } from "../conection/results";
 import Toast from 'react-native-toast-message';
 import 'react-native-get-random-values';
 import 'uuid';
@@ -28,7 +28,8 @@ export function Result() {
   const [nutritionalStatus, setNutritionalStatus] = useState<NutritionalStatus>("")
   const [currentTable, setCurrentTable] = useState<tableProps>(tableAboveNineten)
 
-  const {maleStatus,
+  const {
+    maleStatus,
     weight, 
     height, 
     month, 
@@ -38,7 +39,10 @@ export function Result() {
   const currentDate = new Date();
   const currentYear = currentDate.getFullYear();
   const currentMonth = currentDate.getMonth();
-  const months = (currentYear - Number(year)) * 12 + (currentMonth - Number(month))
+  const months = month ? (currentYear - Number(year)) * 12 + (currentMonth - Number(month)) : 0
+  const age = months ? Math.floor(months / 12) : ""
+  const description = `${weight} kg | ${height} cm${age ? ` | ${age} anos` : ''}`
+  const descriptionAll = `${description}${gender == 'male' ? ' | Masculino' : ' | Feminino'}`
 
   function calculateBmi(alturaValue: number, pesoValue: number) {
     const heightInMeters = alturaValue / 100
@@ -107,8 +111,8 @@ export function Result() {
       const newRegister = {
         id,
         bmi, 
-        status: "",
-        Description: "",
+        status: nutritionalStatus,
+        description,
         criateAt: (new Date()).toString()
       }
       await storeHistoryBmi(newRegister)
@@ -142,7 +146,13 @@ export function Result() {
     <View className="flex-1 flex-grow justify-between bg-zinc-50">
       <View>
         <CustomHeader titulo="Resultado" />
-        <InfoResult bmi={bmi} data={currentTable} onPress={toggleModal} resultado={nutritionalStatus}  />
+        <InfoResult 
+          bmi={bmi}
+          data={currentTable}
+          onPress={toggleModal}
+          resultado={nutritionalStatus}
+          description={descriptionAll}
+        />
 
         <ExplainResult resultado={nutritionalStatus} />
 
@@ -152,8 +162,7 @@ export function Result() {
 
         {/* <View className="flex-1 items-center mt-8">
           <Button caption="Teste" onPress={async () => {
-            const  response = await getHistoryBmi()
-            console.log(response)
+            await clearHistoryBmi()
           }}/>
         </View> */}
       </View>

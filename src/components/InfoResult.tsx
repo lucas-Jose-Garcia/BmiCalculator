@@ -15,10 +15,11 @@ interface InfoResultProps {
   bmi: string
   data: tableLimitProps
   resultado: NutritionalStatus
+  description: string
   onPress: () => void
 }
 
-export function InfoResult({bmi, data, resultado, onPress} : InfoResultProps) {
+export function InfoResult({bmi, data, resultado, description, onPress} : InfoResultProps) {
   const bottom = data["underLimit"]
   const quite = data["overwightLimit"]
   const higher = data["obesityThreeLimit"] ? data["obesityThreeLimit"] : data["obesityLimit"] * 1.2
@@ -62,7 +63,7 @@ export function InfoResult({bmi, data, resultado, onPress} : InfoResultProps) {
       </View>
 
         <View className="mt-3 justify-center items-center">
-          <Text className="text-zinc-500 font-mulish-sm text-sm">75.00 kg | 170 cm | Masculino | 19 anos</Text>
+          <Text className="text-zinc-500 font-mulish-sm text-sm">{description}</Text>
         </View>
     </View>
   );

@@ -1,16 +1,22 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { NutritionalStatus } from '../app/Result';
 
 export interface HistoryItem {
     id: string
     bmi: string
-    status: string
-    Description: string 
+    status: NutritionalStatus
+    description: string 
     criateAt: string
+}
+
+export async function clearHistoryBmi() {
+    await AsyncStorage.removeItem('@bmiCalculator:history')
 }
 
 export async function getHistoryBmi() {
     const response = await AsyncStorage.getItem('@bmiCalculator:history')
     const previousData = response ? JSON.parse(response) : []
+    console.log(previousData)
     return previousData
 }
 

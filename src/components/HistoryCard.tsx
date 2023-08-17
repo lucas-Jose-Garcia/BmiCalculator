@@ -1,5 +1,6 @@
 import { Text, TouchableOpacity, View } from "react-native";
 import { HistoryItem } from "../conection/results";
+import { dateFormatter } from "../utils/formatter";
 
 interface HistoryCardProps {
     data: HistoryItem
@@ -9,6 +10,7 @@ export function HistoryCard({data} : HistoryCardProps) {
 
     return (
         <TouchableOpacity 
+            key={data.id}
             className="mt-4 p-5 flex-1 flex-row justify-between items-center rounded-xl border-2 border-zinc-100 bg-white shadow-sm shadow-zinc-300"
         >
             <View className="items-center" >
@@ -16,8 +18,8 @@ export function HistoryCard({data} : HistoryCardProps) {
                 <Text>{data.status}</Text>
             </View>
             <View className="items-end">
-                <Text className="font-mulish text-base text- ">{data.Description}</Text>
-                <Text className="text-zinc-400">{data.criateAt}</Text>
+                <Text className="font-mulish text-base text-zinc-800 ">{data.description}</Text>
+                <Text className="text-zinc-400">{dateFormatter.format(new Date(data.criateAt))}</Text>
             </View>
         </TouchableOpacity>
     )
