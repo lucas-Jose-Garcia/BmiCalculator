@@ -16,10 +16,8 @@ export async function clearHistoryBmi() {
 export async function getHistoryBmi() {
     const response = await AsyncStorage.getItem('@bmiCalculator:history')
     const previousData = response ? JSON.parse(response) : []
-    console.log(previousData)
     return previousData
 }
-
 
 export async function storeHistoryBmi(newHistory: HistoryItem) {
     try {
@@ -30,4 +28,10 @@ export async function storeHistoryBmi(newHistory: HistoryItem) {
     } catch (e) {
         console.log(e)
     }
+}
+
+export async function deleteRecordById(id: string) {
+    const currentHistory: HistoryItem[] | []  = await getHistoryBmi()
+    const newHistory = currentHistory.filter((item) => item.id != id)
+    await AsyncStorage.setItem('@bmiCalculator:history', JSON.stringify(newHistory))
 }

@@ -5,24 +5,6 @@ import { useCallback, useState } from "react";
 import { useFocusEffect } from "@react-navigation/native";
 import { HistoryItem, getHistoryBmi } from "../conection/results";
 
-const mock = [
-    {
-        "id": "13525846",
-        "bmi": "23.9",
-        "status": "Normal",
-        "Description": "65.00kg | 165cm | 17 anos",
-        "criateAt": "11 de jul. de 2023"
-    },
-    {
-        "id": "13156351352",
-        "bmi": "45.9",
-        "status": "Normal",
-        "Description": "65.00kg | 165cm | 17 anos",
-        "criateAt": "11 de jul. de 2023"
-    },
-
-]
-
 export function History() {
     const [historyData, setHistoryData] = useState([] as HistoryItem[])
 
@@ -42,12 +24,7 @@ export function History() {
             <CustomHeader titulo="Histórico"/>
 
             <ScrollView className="mt-4">
-                {historyData.map((history) => {
-                    console.log(JSON.stringify(history))
-                    return (
-                        <HistoryCard data={history} />
-                    )
-                })}
+                {historyData.map((history) => <HistoryCard key={history.id} data={history} />)}
             </ScrollView>
         </View>
     )

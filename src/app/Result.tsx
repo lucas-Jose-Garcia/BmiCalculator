@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { View} from "react-native";
+import { View } from "react-native";
 import { CustomHeader } from "../components/CustomHeader";
 import { InfoResult } from "../components/InfoResult";
 import { ExplainResult } from "../components/ExplainResult";
@@ -16,8 +16,7 @@ import { StateContex, StateContexProps } from "../context";
 import { clearHistoryBmi, getHistoryBmi, storeHistoryBmi } from "../conection/results";
 import Toast from 'react-native-toast-message';
 import 'react-native-get-random-values';
-import 'uuid';
-import { v4 as uuid } from 'uuid'
+import { v4 } from 'uuid'
 
 export type NutritionalStatus = "" | "Abaixo do Peso" | "Normal" | "Sobrepeso" | "Obesidade" |  "Obesidade Grau I" | "Obesidade Grau II" | "Obesidade Grau III" | undefined;
 
@@ -106,8 +105,9 @@ export function Result() {
   };
 
   async function handleSaveHistory() {
-    try {
-      const id = uuid()
+    
+      const id = new Date().getTime().toString();
+
       const newRegister = {
         id,
         bmi, 
@@ -123,14 +123,7 @@ export function Result() {
 
       navigation.navigate('Home')
 
-    } catch (e) {
-      Toast.show({
-        type: 'error',
-        text1: 'Ops, ocorreu um erro!',
-        text2: `Erro: ${e}`
-      })
-      console.log(e)
-    }
+    
   }
 
   useEffect(() => {
@@ -160,8 +153,17 @@ export function Result() {
           <Button caption="Salvar" onPress={handleSaveHistory}/>
         </View>
 
-        {/* <View className="flex-1 items-center mt-8">
+        {/* <View className="flex-1 items-center mt-32">
           <Button caption="Teste" onPress={async () => {
+            // console.log({
+            //   bmi, 
+            //   status: nutritionalStatus,
+            //   description,
+            // })
+
+            //const res = await getHistoryBmi()
+            //console.log(res)
+
             await clearHistoryBmi()
           }}/>
         </View> */}
