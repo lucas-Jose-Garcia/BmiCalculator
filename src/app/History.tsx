@@ -1,4 +1,4 @@
-import { Text, View, ScrollView } from "react-native";
+import { Text, View, ScrollView, SafeAreaView } from "react-native";
 import { CustomHeader } from "../components/CustomHeader";
 import { HistoryCard } from "../components/HistoryCard";
 import { useCallback, useState } from "react";
@@ -20,12 +20,12 @@ export function History() {
     }, []))
 
     return (
-        <View className="flex-1 bg-zinc-50">
+        <SafeAreaView className="flex-1 bg-zinc-50">
             <CustomHeader titulo="Histórico"/>
 
             <ScrollView className="mt-4">
                 {historyData.map((history) => <HistoryCard key={history.id} data={history} />)}
             </ScrollView>
-        </View>
+        </SafeAreaView>
     )
 }

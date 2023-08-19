@@ -69,10 +69,10 @@ export function TableModal({
     >
       <View className="flex-1 justify-end">
         <TouchableWithoutFeedback
-          className="flex-1 bg-purple-50"
+          className="flex-1"
           onPress={toggleModal}
         >
-          <View className="flex-1 bg-slate-900 opacity-20 mb-[-24px]"></View>
+          <View className="flex-1 bg-slate-900 opacity-20 mb-[-24px]" />
         </TouchableWithoutFeedback>
         <View className="w-full p-4 bg-white shadow-md shadow-gray-400 rounded-t-3xl">
           <Text className="font-mulish text-xl mb-3">Tabela IMC {tableData["obesityThreeLimit"] > 0 ? "para adultos" : "para adolecentes"}</Text>

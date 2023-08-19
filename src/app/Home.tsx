@@ -1,4 +1,4 @@
-import React, { useContext, useCallback } from "react";
+import React, { useContext, useCallback, useState, useEffect } from "react";
 import { StatusBar } from "expo-status-bar";
 import {
   TouchableWithoutFeedback,
@@ -6,6 +6,8 @@ import {
   Keyboard,
   Text,
   TouchableOpacity,
+  TextInput,
+  SafeAreaView,
 } from "react-native";
 import { FontAwesome5 } from '@expo/vector-icons';
 import { Header } from "../components/Header";
@@ -17,6 +19,11 @@ import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { StackTypes } from "../routers/stack";
 import { StateContex, StateContexProps } from "../context";
 import Toast from 'react-native-toast-message';
+import {Picker} from '@react-native-picker/picker';
+import { styled } from "nativewind";
+
+const StyledPicker = styled(Picker);
+const StyledPickerItem = styled(Picker.Item);
 
 export function Home() {
   const navigation = useNavigation<StackTypes>()
@@ -32,6 +39,8 @@ export function Home() {
     setHeight,
     setMonth, 
     setYear,} = useContext<StateContexProps>(StateContex)
+    const [monthModal, setMonthModal] = useState(false)
+    const [yearModal, setYearhModal] = useState(false)
 
   function selectMale() {
     setMaleStatus(true);
@@ -44,13 +53,21 @@ export function Home() {
   }
 
   function checkCompletionOfFields() {
-    if (Number(weight) > 0 && Number(height) > 0 && Number(month) > 0 && Number(year) > 0) {
+    // && Number(month) > 0 && Number(year) > 0
+    if (Number(weight) > 0 && Number(height) > 0) {
       return true
     }
 
     return false
   }
 
+  function toggleVisibilityMonthModal() {
+    setMonthModal(state => !state)
+  }
+
+  function toggleVisibilityYearModal() {
+    setYearhModal(state => !state)
+  }
 
 
   function handleToCalculateBmi() {
@@ -66,10 +83,11 @@ export function Home() {
     }
 
   }
-
-  
+ 
   const currentDate = new Date();
-  const currentYear = currentDate.getFullYear();
+  const startYear = currentDate.getFullYear() - 5;
+  const listMonth = ["01", "02", "03","04","05","06","07","08","09","10","11","12" ]
+  const listYear = Array.from({ length: 100 }, (_, i) => String(startYear - i));
 
   useFocusEffect(useCallback(() => {
     setWeight("")
@@ -78,9 +96,13 @@ export function Home() {
     setYear("")
   }, []))
 
+  useEffect(() => {
+
+  }, [])
 
   return (
-    <TouchableWithoutFeedback
+    <SafeAreaView className="flex-1">
+      <TouchableWithoutFeedback
       className="flex-1 items-center justify-start "
       onPress={Keyboard.dismiss}
     >
@@ -110,6 +132,7 @@ export function Home() {
               mask="999"
               value={weight}
               setValue={setWeight}
+              
             />
             <InfoInput
               title="Altura (cm)"
@@ -127,16 +150,18 @@ export function Home() {
               title="Mês de Nascimento"
               value={month}
               setValue={setMonth}
-              maxLength={2}
-              maxValue={12}
+              list={listMonth}
+              modalVisible={monthModal}
+              toggleVisibility={toggleVisibilityMonthModal}
             />
             <InfoDate
               placeholder="0000"
               title="Ano de Nascimento"
               value={year}
               setValue={setYear}
-              maxLength={4}
-              maxValue={currentYear}
+              list={listYear}
+              modalVisible={yearModal}
+              toggleVisibility={toggleVisibilityYearModal}
             />
           </View>
         </View>
@@ -155,5 +180,6 @@ export function Home() {
 
       </View>
     </TouchableWithoutFeedback>
+    </SafeAreaView>
   );
 }

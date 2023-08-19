@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, TouchableOpacity, View, Linking } from "react-native";
+import { Text, TouchableOpacity, View, Linking, SafeAreaView } from "react-native";
 import { CustomHeader } from "../components/CustomHeader";
 import { GoToReference } from "../components/GoToReference";
 
@@ -18,7 +18,7 @@ export function Details() {
     }
 
     return (
-        <View className="flex-1 bg-zinc-50">
+        <SafeAreaView className="flex-1 bg-zinc-50">
             <CustomHeader titulo="Explicação"/>
 
             <View className="mt-7">
@@ -43,6 +43,6 @@ export function Details() {
                     />
                 </View>
             </View>
-        </View>
+        </SafeAreaView>
     )
 }

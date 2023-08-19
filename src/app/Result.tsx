@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { View } from "react-native";
+import { SafeAreaView, View } from "react-native";
 import { CustomHeader } from "../components/CustomHeader";
 import { InfoResult } from "../components/InfoResult";
 import { ExplainResult } from "../components/ExplainResult";
@@ -38,8 +38,8 @@ export function Result() {
   const currentDate = new Date();
   const currentYear = currentDate.getFullYear();
   const currentMonth = currentDate.getMonth();
-  const months = month ? (currentYear - Number(year)) * 12 + (currentMonth - Number(month)) : 0
-  const age = months ? Math.floor(months / 12) : ""
+  const months = month ? (currentYear - Number(year)) * 12 + (currentMonth - Number(month)) : 300
+  const age = month ? Math.floor(months / 12) : ""
   const description = `${weight} kg | ${height} cm${age ? ` | ${age} anos` : ''}`
   const descriptionAll = `${description}${gender == 'male' ? ' | Masculino' : ' | Feminino'}`
 
@@ -129,6 +129,8 @@ export function Result() {
   useEffect(() => {
     const bmiValue = calculateBmi(Number(height), Number(weight))
     setBmi(bmiValue)
+    console.log("month: "+ month)
+    console.log("year: "+ year)
     const currentTableUsed = getTableToBeUsed(months, gender)
     const checkStatus = checkNutritionalStatus(bmiValue, currentTableUsed)
     setCurrentTable(currentTableUsed)
@@ -136,7 +138,7 @@ export function Result() {
   }, [])
 
   return (
-    <View className="flex-1 flex-grow justify-between bg-zinc-50">
+    <SafeAreaView className="flex-1 flex-grow justify-between bg-zinc-50">
       <View>
         <CustomHeader titulo="Resultado" />
         <InfoResult 
@@ -175,6 +177,6 @@ export function Result() {
         toggleModal={toggleModal}
         nutritionalStatus={nutritionalStatus}
       />
-    </View>
+    </SafeAreaView>
   );
 }

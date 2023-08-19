@@ -12,7 +12,7 @@ export function CustomHeader({titulo} : CustomHeaderProps) {
   const navigation = useNavigation<StackTypes>()
 
   return (
-    <View className="flex-row items-center gap-2">
+    <View className="flex-row items-center gap-2 mt-1">
       <TouchableOpacity 
         className="p-2 border-solid border-[3px] border-principal-300 rounded-lg"
         onPress={() => {navigation.goBack()}}
