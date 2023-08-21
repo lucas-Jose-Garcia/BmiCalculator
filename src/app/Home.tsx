@@ -46,8 +46,7 @@ export function Home() {
   }
 
   function checkCompletionOfFields() {
-    // && Number(month) > 0 && Number(year) > 0
-    if (Number(weight) > 0 && Number(height) > 0) {
+    if (Number(weight) > 0 && Number(height) > 0 && Number(month) > 0 && Number(year) > 0) {
       return true
     }
 
