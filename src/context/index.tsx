@@ -38,6 +38,7 @@ export function StateProvider({children}: any) {
     const [month, setMonth] = useState("");
     const [year, setYear] = useState("");
     
+    
     return (
         <StateContex.Provider value={{
             maleStatus,

@@ -1,16 +1,20 @@
 import { Alert, Text, TouchableOpacity, View } from "react-native";
-import { HistoryItem, deleteRecordById, getHistoryBmi } from "../conection/results";
+import { HistoryItem, deleteRecordById } from "../conection/results";
 import { dateFormatter } from "../utils/formatter";
 
 interface HistoryCardProps {
     data: HistoryItem
+    upload: () => void
 }
 
-export function HistoryCard({data} : HistoryCardProps) {
+export function HistoryCard({data, upload} : HistoryCardProps) {
     function handleDeleteItem() {        
         Alert.alert('Exclusão', 'Deseja excluir o item selecionado?', [
             {text: 'Não'},
-            {text: 'Sim', onPress: async () => {await deleteRecordById(data.id)}}
+            {text: 'Sim', onPress: async () => {
+                await deleteRecordById(data.id)
+                upload()
+            }}
         ])
     }
 

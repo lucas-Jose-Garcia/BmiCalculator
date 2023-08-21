@@ -4,6 +4,7 @@ import { PickerModal } from "./PickerModal";
 interface InfoDateProps {
     title: string
     placeholder: string
+    alert?: string
     value: string
     list: string[]
     modalVisible: boolean
@@ -11,7 +12,7 @@ interface InfoDateProps {
     toggleVisibility: () => void
 }
 
-export function InfoDate({list, title, placeholder, value, modalVisible, setValue, toggleVisibility}: InfoDateProps) {
+export function InfoDate({list, title, placeholder, alert, value, modalVisible, setValue, toggleVisibility}: InfoDateProps) {
 
   return (
     <View className="flex-1 items-center justify-center">
@@ -28,6 +29,7 @@ export function InfoDate({list, title, placeholder, value, modalVisible, setValu
       </TouchableOpacity>
       <PickerModal 
         list={list}
+        alert={alert ? alert : ""}
         setValue={setValue}
         visible={modalVisible} 
         toggleModal={toggleVisibility}

@@ -3,9 +3,8 @@ import { SafeAreaView, View } from "react-native";
 import { CustomHeader } from "../components/CustomHeader";
 import { InfoResult } from "../components/InfoResult";
 import { ExplainResult } from "../components/ExplainResult";
-import { tableAboveNineten, tableProps, teensTableProps, test, testeFormated } from "../data/data";
+import { tableAboveNineten, tableProps, teensTableProps } from "../data/data";
 
-import { Image } from "expo-image";
 import { TableModal } from "../components/TableModal";
 import { tableBoys } from "../data/tableBoys";
 import { tableGirls } from "../data/tableGirls";
@@ -13,10 +12,9 @@ import { Button } from "../components/Button";
 import { useNavigation } from '@react-navigation/native';
 import { StackTypes } from "../routers/stack";
 import { StateContex, StateContexProps } from "../context";
-import { clearHistoryBmi, getHistoryBmi, storeHistoryBmi } from "../conection/results";
+import { storeHistoryBmi } from "../conection/results";
 import Toast from 'react-native-toast-message';
 import 'react-native-get-random-values';
-import { v4 } from 'uuid'
 
 export type NutritionalStatus = "" | "Abaixo do Peso" | "Normal" | "Sobrepeso" | "Obesidade" |  "Obesidade Grau I" | "Obesidade Grau II" | "Obesidade Grau III" | undefined;
 

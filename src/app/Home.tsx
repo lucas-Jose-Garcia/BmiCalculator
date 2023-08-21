@@ -1,12 +1,10 @@
 import React, { useContext, useCallback, useState, useEffect } from "react";
-import { StatusBar } from "expo-status-bar";
 import {
   TouchableWithoutFeedback,
   View,
   Keyboard,
   Text,
   TouchableOpacity,
-  TextInput,
   SafeAreaView,
 } from "react-native";
 import { FontAwesome5 } from '@expo/vector-icons';
@@ -19,11 +17,6 @@ import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { StackTypes } from "../routers/stack";
 import { StateContex, StateContexProps } from "../context";
 import Toast from 'react-native-toast-message';
-import {Picker} from '@react-native-picker/picker';
-import { styled } from "nativewind";
-
-const StyledPicker = styled(Picker);
-const StyledPickerItem = styled(Picker.Item);
 
 export function Home() {
   const navigation = useNavigation<StackTypes>()
@@ -157,6 +150,7 @@ export function Home() {
             <InfoDate
               placeholder="0000"
               title="Ano de Nascimento"
+              alert="(Mínimo de 5 anos)"
               value={year}
               setValue={setYear}
               list={listYear}
